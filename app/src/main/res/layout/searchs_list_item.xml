@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:selectableItemBackground">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_view_city_name"
+        android:ellipsize="end"
+        android:gravity="start"
+        android:layout_gravity="center_vertical"
+        android:textColor="@color/colorPrimary"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="25sp"
+        android:text="Madrid"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_view_location_point"
+        android:layout_gravity="center_vertical"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="12sp"
+        android:text="Lat: 55, Lng: 10"/>
+
+</LinearLayout>
