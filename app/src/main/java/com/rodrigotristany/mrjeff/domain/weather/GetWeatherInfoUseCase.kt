@@ -8,8 +8,9 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import javax.inject.Inject
 
-class GetWeatherInfoUseCase @Inject constructor(private val weatherRepository: WeatherRepository,
-                                                subscribeScheduler: Scheduler,
-                                                postExecutionScheduler: Scheduler) : UseCase<List<WeatherObservation>, WeatherRequest>(subscribeScheduler, postExecutionScheduler) {
+class GetWeatherInfoUseCase
+@Inject constructor(private val weatherRepository: WeatherRepository,
+                    subscribeScheduler: Scheduler,
+                    postExecutionScheduler: Scheduler) : UseCase<List<WeatherObservation>, WeatherRequest>(subscribeScheduler, postExecutionScheduler) {
     override fun buildUseCaseSingle(params: WeatherRequest?): Observable<List<WeatherObservation>> = weatherRepository.weatherObservation(params!!)
 }

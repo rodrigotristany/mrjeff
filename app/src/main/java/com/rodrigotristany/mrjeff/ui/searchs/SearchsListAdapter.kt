@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.rodrigotristany.mrjeff.R
 import com.rodrigotristany.mrjeff.data.cities.models.City
-import com.rodrigotristany.mrjeff.internal.inflate
+import com.rodrigotristany.mrjeff.internal.extensions.inflate
 import kotlinx.android.synthetic.main.searchs_list_item.view.*
 
 data class SearchsListAdapter(val cities: List<City>, val listener: (City) -> Unit)

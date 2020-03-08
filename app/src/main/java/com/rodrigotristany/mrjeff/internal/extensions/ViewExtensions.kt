@@ -1,4 +1,4 @@
-package com.rodrigotristany.mrjeff.internal
+package com.rodrigotristany.mrjeff.internal.extensions
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

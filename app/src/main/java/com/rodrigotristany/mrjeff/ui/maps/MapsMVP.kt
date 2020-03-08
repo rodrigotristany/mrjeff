@@ -2,11 +2,11 @@ package com.rodrigotristany.mrjeff.ui.maps
 
 interface MapsMVP {
     interface View {
+        fun showLoader()
+        fun hideLoader()
     }
 
     interface Presenter {
-    }
-
-    interface Model {
+        fun searchCity(value: String)
     }
 }

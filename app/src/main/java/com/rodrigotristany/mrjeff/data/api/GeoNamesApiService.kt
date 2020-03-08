@@ -6,7 +6,7 @@ import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface IGeoNamesAPI {
+interface GeoNamesApiService {
     @GET("searchJSON?maxRows=20&startRow=0&lang=en&isNameRequired=true&style=FULL&username=ilgeonamessample")
     fun getCities(@Query("q") q: String): Observable<CityResponse>
 
