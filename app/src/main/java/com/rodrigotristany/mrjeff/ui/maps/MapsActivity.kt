@@ -91,11 +91,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapsMVP.View {
         }
     }
 
-    override fun displayCityInfo(temperature: Double) {
-        val df = DecimalFormat("#.##")
+    override fun displayCityInfo() {
         city_text_view.text = getString(R.string.city_full_name, city.name, city.countryName)
         population_text_view.text = getString(R.string.city_population_text, city.population.toString())
         timezone_text_view.text = getString(R.string.city_timezone_text, city.timezone.gmtOffset.toString())
+    }
+
+    override fun displayWeatherInfo(temperature: Double) {
+        val df = DecimalFormat("#.##")
         temperature_text_view.text = getString(R.string.temperature_text, df.format(temperature))
         determinateBar.animateTo(temperature.toInt(), 500)
     }

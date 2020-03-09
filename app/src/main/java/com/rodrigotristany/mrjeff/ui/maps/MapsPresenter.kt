@@ -45,15 +45,19 @@ class MapsPresenter(private val getWeatherInfoUseCase: GetWeatherInfoUseCase,
                     onError(Throwable(weatherResponse.status?.message))
                 else {
                     val weatherInfo = weatherResponse.weatherObservations
-                    if(weatherInfo.isEmpty())
+                    if(weatherInfo.isEmpty()){
                         view?.showToast(context.getString(R.string.no_matching_data_from_server))
-                    val averageTemp = weatherInfo.filter { weatherInfo ->
-                        !weatherInfo.temperature.isNullOrEmpty()
-                    }.map {
-                        it.temperature.toDouble()
-                    }.average()
-                    view?.displayCityInfo(averageTemp)
+                    }
+                    else {
+                        val averageTemp = weatherInfo.filter { weatherInfo ->
+                            !weatherInfo.temperature.isNullOrEmpty()
+                        }.map {
+                            it.temperature.toDouble()
+                        }.average()
+                        view?.displayWeatherInfo(averageTemp)
+                    }
                 }
+                view?.displayCityInfo()
             }
 
             override fun onError(e: Throwable) {

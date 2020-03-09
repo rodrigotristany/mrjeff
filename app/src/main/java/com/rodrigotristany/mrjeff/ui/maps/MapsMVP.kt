@@ -6,7 +6,8 @@ import com.rodrigotristany.mrjeff.internal.mvp.BaseMVP
 interface MapsMVP {
     interface View : BaseMVP.View {
         fun setLocationPoint(lat: Double, lng: Double)
-        fun displayCityInfo(temperature: Double)
+        fun displayCityInfo()
+        fun displayWeatherInfo(temperature: Double)
     }
 
     interface Presenter {
