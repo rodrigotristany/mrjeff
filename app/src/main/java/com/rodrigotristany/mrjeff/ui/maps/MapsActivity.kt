@@ -16,6 +16,7 @@ import com.google.gson.Gson
 import com.rodrigotristany.mrjeff.R
 import com.rodrigotristany.mrjeff.data.cities.models.City
 import com.rodrigotristany.mrjeff.internal.App
+import com.rodrigotristany.mrjeff.internal.extensions.animateTo
 import com.rodrigotristany.mrjeff.ui.maps.di.DaggerMapsComponent
 import com.rodrigotristany.mrjeff.ui.searchs.RecentSearchesActivity
 import kotlinx.android.synthetic.main.activity_maps.*
@@ -85,6 +86,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapsMVP.View {
         city_text_view.text = getString(R.string.city_full_name, city.name, city.countryName)
         population_text_view.text = getString(R.string.city_population_text, city.population.toString())
         timezone_text_view.text = getString(R.string.city_timezone_text, city.timezone.gmtOffset.toString())
+        determinateBar.animateTo(temperature.toInt(), 1000)
     }
 
     override fun showToast(message: String?) {

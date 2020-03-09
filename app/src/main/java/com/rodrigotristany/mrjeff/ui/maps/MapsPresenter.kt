@@ -42,7 +42,11 @@ class MapsPresenter(private val getWeatherInfoUseCase: GetWeatherInfoUseCase,
                 view?.hideLoader()
                 if(weatherInfo.isEmpty())
                     view?.showToast(context.getString(R.string.no_matching_data_from_server))
-                val averageTemp = weatherInfo.map { weatherInfo -> weatherInfo.temperature }.average()
+                val averageTemp = weatherInfo.filter { weatherInfo ->
+                    !weatherInfo.temperature.isNullOrEmpty()
+                }.map {
+                    it.temperature.toDouble()
+                }.average()
                 view?.displayCityInfo(averageTemp)
             }
 

@@ -54,6 +54,4 @@ dependencies {
 
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$test_runner_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-    implementation 'com.google.android.material:material:1.1.0'
 }

@@ -42,7 +42,7 @@ data class WeatherObservation(
 
     @SerializedName("temperature")
     @Expose
-    val temperature: Double,
+    val temperature: String,
 
     @SerializedName("weatherCondition")
     @Expose

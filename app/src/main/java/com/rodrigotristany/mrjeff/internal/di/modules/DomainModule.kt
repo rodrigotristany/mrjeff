@@ -28,7 +28,6 @@ class DomainModule {
     internal fun provideMainThreadScheduler() = AndroidSchedulers.mainThread()
 
     @Provides
-    @Singleton
     internal fun provideGetCitiesUserCase(
         cityRepository: CityRepository,
         @Named("ioScheduler") ioScheduler: Scheduler,
@@ -36,7 +35,6 @@ class DomainModule {
         GetCitiesUseCase(cityRepository, ioScheduler, mainThreadScheduler)
 
     @Provides
-    @Singleton
     internal fun provideGetHistorySearchUseCase(
         cityDao: CityDao,
         @Named("ioScheduler") ioScheduler: Scheduler,
@@ -44,7 +42,6 @@ class DomainModule {
         GetHistorySearchUseCase(cityDao, ioScheduler, mainThreadScheduler)
 
     @Provides
-    @Singleton
     internal fun provideSaveLastSearchUseCase(
         cityDao: CityDao,
         @Named("ioScheduler") ioScheduler: Scheduler,
@@ -52,7 +49,6 @@ class DomainModule {
         SaveLastSearchUseCase(cityDao, ioScheduler, mainThreadScheduler)
 
     @Provides
-    @Singleton
     internal fun provideGetWeatherInfoUseCase(
         weatherRepository: WeatherRepository,
         @Named("ioScheduler") ioScheduler: Scheduler,
