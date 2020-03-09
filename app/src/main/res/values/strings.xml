@@ -11,4 +11,5 @@
     <string name="city_timezone_text">Zona horaria GMT %s</string>
     <string name="city_population_text">%s habitantes</string>
     <string name="network_error">Revise su conexión a internet</string>
+    <string name="temperature_text">%s° temperatura promedio</string>
 </resources>

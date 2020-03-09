@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.rodrigotristany.mrjeff.R
 import com.rodrigotristany.mrjeff.data.cities.models.City
+import com.rodrigotristany.mrjeff.data.cities.models.CityResponse
 import com.rodrigotristany.mrjeff.domain.cities.GetCitiesUseCase
 import com.rodrigotristany.mrjeff.domain.cities.GetHistorySearchUseCase
 import io.reactivex.observers.DisposableObserver
@@ -19,17 +20,23 @@ class RecentSearchesPresenter
 
     override fun searchCity(param: String){
         view?.showLoader()
-        getCitiesUseCase.execute(object : DisposableObserver<List<City>>(){
+        getCitiesUseCase.execute(object : DisposableObserver<CityResponse>(){
             override fun onComplete() {
                 view?.hideLoader()
                 Log.i(TAG, context.getString(R.string.data_loaded_successfully))
             }
 
-            override fun onNext(cities: List<City>) {
+            override fun onNext(cityResponse: CityResponse) {
                 view?.hideLoader()
-                if(cities.isEmpty())
-                    view?.showToast(context.getString(R.string.empty_table_database))
-                view?.showCityList(cities)
+
+                if(!cityResponse.statusOk())
+                    onError(Throwable(cityResponse.status?.message))
+                else {
+                    val cities = cityResponse.cities
+                    if(cities.isEmpty())
+                        view?.showToast(context.getString(R.string.no_matching_data_from_server))
+                    view?.showCityList(cities)
+                }
             }
 
             override fun onError(e: Throwable) {

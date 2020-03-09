@@ -66,7 +66,6 @@ class RecentSearchesActivity : AppCompatActivity(), RecentSearchesMVP.View {
 
     override fun showCityList(cities: List<City>) {
         cities_recycler_view.adapter = SearchsListAdapter(cities) { city ->
-            showToast("You have clicked ${city.name}")
             sendDataToMap(city)
         }
     }

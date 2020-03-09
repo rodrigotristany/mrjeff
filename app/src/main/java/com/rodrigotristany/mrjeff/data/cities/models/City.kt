@@ -9,7 +9,7 @@ import com.google.gson.Gson
 @Entity(tableName = "city")
 data class City(
     @ColumnInfo(name = "bbox")
-    val bbox: Bbox,
+    val bbox: Bbox?,
 
     @ColumnInfo(name = "countryName")
     val countryName: String,

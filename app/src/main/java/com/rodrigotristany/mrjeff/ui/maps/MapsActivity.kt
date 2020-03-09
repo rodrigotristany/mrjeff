@@ -20,6 +20,8 @@ import com.rodrigotristany.mrjeff.internal.extensions.animateTo
 import com.rodrigotristany.mrjeff.ui.maps.di.DaggerMapsComponent
 import com.rodrigotristany.mrjeff.ui.searchs.RecentSearchesActivity
 import kotlinx.android.synthetic.main.activity_maps.*
+import java.lang.Exception
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapsMVP.View {
@@ -39,11 +41,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapsMVP.View {
         initInjector()
         val cityJson = intent.extras?.getString(RecentSearchesActivity.SELECTED_CITY)
         cityJson?.let{
-            city = Gson().fromJson(cityJson, City::class.java)
+            try {
+                city = Gson().fromJson(cityJson, City::class.java)
+                initializeView()
+                presenter.setView(this)
+                presenter.searchCityWeather(city)
+            }
+            catch (ex: Exception) {
+                this.showToast(ex.message)
+                finish()
+            }
         }
-        initializeView()
-        presenter.setView(this)
-        presenter.searchCityWeather(city)
+
     }
 
     private fun initInjector() {
@@ -83,10 +92,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapsMVP.View {
     }
 
     override fun displayCityInfo(temperature: Double) {
+        val df = DecimalFormat("#.##")
         city_text_view.text = getString(R.string.city_full_name, city.name, city.countryName)
         population_text_view.text = getString(R.string.city_population_text, city.population.toString())
         timezone_text_view.text = getString(R.string.city_timezone_text, city.timezone.gmtOffset.toString())
-        determinateBar.animateTo(temperature.toInt(), 1000)
+        temperature_text_view.text = getString(R.string.temperature_text, df.format(temperature))
+        determinateBar.animateTo(temperature.toInt(), 500)
     }
 
     override fun showToast(message: String?) {
