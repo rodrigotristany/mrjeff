@@ -7,9 +7,9 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import javax.inject.Inject
 
-class GetHistorySearchUseCase
+class SaveLastSearchUseCase
 @Inject constructor(private val cityDao: CityDao,
                     subscribeScheduler: Scheduler,
-                    postExecutionScheduler: Scheduler) : UseCase<List<City>, Unit>(subscribeScheduler, postExecutionScheduler) {
-    override fun buildUseCaseSingle(params: Unit?): Observable<List<City>> = cityDao.recentSearch().toObservable()
+                    postExecutionScheduler: Scheduler) : UseCase<Long, City>(subscribeScheduler, postExecutionScheduler) {
+    override fun buildUseCaseSingle(params: City?): Observable<Long> = cityDao.saveSearch(params!!).toObservable()
 }

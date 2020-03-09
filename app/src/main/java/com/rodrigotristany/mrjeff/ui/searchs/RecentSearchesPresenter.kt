@@ -5,17 +5,45 @@ import android.util.Log
 import com.rodrigotristany.mrjeff.R
 import com.rodrigotristany.mrjeff.data.cities.models.City
 import com.rodrigotristany.mrjeff.domain.cities.GetCitiesUseCase
+import com.rodrigotristany.mrjeff.domain.cities.GetHistorySearchUseCase
 import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
 
 class RecentSearchesPresenter
-@Inject constructor(private val getHistorySearchUseCase: GetCitiesUseCase,
+@Inject constructor(private val getCitiesUseCase: GetCitiesUseCase,
+                    private val getHistorySearchUseCase: GetHistorySearchUseCase,
                     private val context: Context) : RecentSearchesMVP.Presenter {
 
     private val TAG : String = RecentSearchesPresenter::javaClass.name
     private var view : RecentSearchesMVP.View? = null
 
-    override fun initialize(){
+    override fun searchCity(param: String){
+        view?.showLoader()
+        getCitiesUseCase.execute(object : DisposableObserver<List<City>>(){
+            override fun onComplete() {
+                view?.hideLoader()
+                Log.i(TAG, context.getString(R.string.data_loaded_successfully))
+            }
+
+            override fun onNext(cities: List<City>) {
+                view?.hideLoader()
+                if(cities.isEmpty())
+                    view?.showToast(context.getString(R.string.empty_table_database))
+                view?.showCityList(cities)
+            }
+
+            override fun onError(e: Throwable) {
+                view?.hideLoader()
+                var message = when(e) {
+                    is java.net.UnknownHostException -> context.getString(R.string.network_error)
+                    else -> e.message
+                }
+                view?.showToast(message)
+            }
+        }, param)
+    }
+
+    override fun recentSearches(){
         view?.showLoader()
         getHistorySearchUseCase.execute(object : DisposableObserver<List<City>>(){
             override fun onComplete() {
@@ -25,6 +53,8 @@ class RecentSearchesPresenter
 
             override fun onNext(cities: List<City>) {
                 view?.hideLoader()
+                if(cities.isEmpty())
+                    view?.showToast(context.getString(R.string.no_matching_data_from_server))
                 view?.showCityList(cities)
             }
 
@@ -32,7 +62,7 @@ class RecentSearchesPresenter
                 view?.hideLoader()
                 view?.showToast(e.message)
             }
-        }, "Mad")
+        })
     }
 
     override fun setView(view: RecentSearchesMVP.View) {

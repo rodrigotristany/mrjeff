@@ -11,8 +11,8 @@ interface GeoNamesApiService {
     fun getCities(@Query("q") q: String): Observable<CityResponse>
 
     @GET("weatherJSON?username=ilgeonamessample")
-    fun getLocationWeather(@Query("north") north: Float,
-                           @Query("south") south: Float,
-                           @Query("east") east: Float,
-                           @Query("west") west: Float): Observable<WeatherResponse>
+    fun getLocationWeather(@Query("north") north: Double,
+                           @Query("south") south: Double,
+                           @Query("east") east: Double,
+                           @Query("west") west: Double): Observable<WeatherResponse>
 }

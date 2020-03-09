@@ -4,6 +4,7 @@ import android.content.Context
 import com.rodrigotristany.mrjeff.data.api.GeoNamesApiService
 import com.rodrigotristany.mrjeff.domain.cities.GetCitiesUseCase
 import com.rodrigotristany.mrjeff.domain.cities.GetHistorySearchUseCase
+import com.rodrigotristany.mrjeff.domain.cities.SaveLastSearchUseCase
 import com.rodrigotristany.mrjeff.domain.weather.GetWeatherInfoUseCase
 import com.rodrigotristany.mrjeff.internal.App
 import com.rodrigotristany.mrjeff.internal.di.modules.DataModule
@@ -26,4 +27,5 @@ interface ApplicationComponent {
     fun getCitiesUserCase(): GetCitiesUseCase
     fun getHistorySearchUseCase() : GetHistorySearchUseCase
     fun getWeatherInfoUseCase() : GetWeatherInfoUseCase
+    fun getSaveLastSearchUseCase() : SaveLastSearchUseCase
 }

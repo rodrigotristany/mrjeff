@@ -5,6 +5,7 @@ import com.rodrigotristany.mrjeff.data.cities.repository.CityRepository
 import com.rodrigotristany.mrjeff.data.weather.repository.WeatherRepository
 import com.rodrigotristany.mrjeff.domain.cities.GetCitiesUseCase
 import com.rodrigotristany.mrjeff.domain.cities.GetHistorySearchUseCase
+import com.rodrigotristany.mrjeff.domain.cities.SaveLastSearchUseCase
 import com.rodrigotristany.mrjeff.domain.weather.GetWeatherInfoUseCase
 import dagger.Module
 import dagger.Provides
@@ -41,6 +42,14 @@ class DomainModule {
         @Named("ioScheduler") ioScheduler: Scheduler,
         @Named("mainThreadScheduler") mainThreadScheduler: Scheduler): GetHistorySearchUseCase =
         GetHistorySearchUseCase(cityDao, ioScheduler, mainThreadScheduler)
+
+    @Provides
+    @Singleton
+    internal fun provideSaveLastSearchUseCase(
+        cityDao: CityDao,
+        @Named("ioScheduler") ioScheduler: Scheduler,
+        @Named("mainThreadScheduler") mainThreadScheduler: Scheduler): SaveLastSearchUseCase =
+        SaveLastSearchUseCase(cityDao, ioScheduler, mainThreadScheduler)
 
     @Provides
     @Singleton

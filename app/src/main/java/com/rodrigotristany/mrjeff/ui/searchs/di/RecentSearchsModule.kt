@@ -13,8 +13,9 @@ import dagger.Provides
 class RecentSearchsModule {
     @PerActivity
     @Provides
-    fun provideRecentsSearchsPresenter(getHistorySearchUseCase: GetCitiesUseCase,
+    fun provideRecentsSearchsPresenter(getCitiesUseCase: GetCitiesUseCase,
+                                       getHistorySearchUseCase: GetHistorySearchUseCase,
                                        context: Context) : RecentSearchesMVP.Presenter {
-        return RecentSearchesPresenter(getHistorySearchUseCase, context)
+        return RecentSearchesPresenter(getCitiesUseCase, getHistorySearchUseCase, context)
     }
 }

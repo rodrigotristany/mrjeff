@@ -2,4 +2,13 @@
     <string name="app_name">Mr Jeff</string>
     <string name="title_activity_maps">Map</string>
     <string name="data_loaded_successfully">Data loaded successfully</string>
+    <string name="data_saved_successfully">City saved on database</string>
+    <string name="data_error_during_saving">Error trying to save city on database</string>
+    <string name="empty_table_database">Aún no hay registros en la base de datos</string>
+    <string name="no_matching_data_from_server">La búsqueda no arrojó resultados</string>
+    <string name="enter_the_city">Ingresar la ciudad</string>
+    <string name="city_full_name">%s, %s</string>
+    <string name="city_timezone_text">Zona horaria GMT %s</string>
+    <string name="city_population_text">%s habitantes</string>
+    <string name="network_error">Revise su conexión a internet</string>
 </resources>

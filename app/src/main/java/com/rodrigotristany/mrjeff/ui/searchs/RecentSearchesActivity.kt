@@ -1,10 +1,11 @@
 package com.rodrigotristany.mrjeff.ui.searchs
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,6 +14,7 @@ import com.google.gson.Gson
 import com.rodrigotristany.mrjeff.R
 import com.rodrigotristany.mrjeff.data.cities.models.City
 import com.rodrigotristany.mrjeff.internal.App
+import com.rodrigotristany.mrjeff.ui.maps.MapsActivity
 import com.rodrigotristany.mrjeff.ui.searchs.di.DaggerRecentSearchesComponent
 import kotlinx.android.synthetic.main.activity_recent_searchs.*
 import javax.inject.Inject
@@ -31,8 +33,21 @@ class RecentSearchesActivity : AppCompatActivity(), RecentSearchesMVP.View {
         setContentView(R.layout.activity_recent_searchs)
         initInjector()
         initRecyclerView()
-        presenter.initialize()
+        initListeners()
         presenter.setView(this)
+    }
+
+    private fun initListeners() {
+        search_button.setOnClickListener {
+            cities_recycler_view.adapter = null
+            hideKeyboard(city_text_input)
+            presenter.searchCity(city_text_input.text.toString())
+        }
+        recents_button.setOnClickListener {
+            city_text_input.clearFocus()
+            hideKeyboard(city_text_input)
+            presenter.recentSearches()
+        }
     }
 
     private fun initRecyclerView() {
@@ -57,10 +72,9 @@ class RecentSearchesActivity : AppCompatActivity(), RecentSearchesMVP.View {
     }
 
     override fun sendDataToMap(city: City) {
-        val resultIntent = Intent()
+        val resultIntent = Intent(this, MapsActivity::class.java)
         resultIntent.putExtra(SELECTED_CITY, Gson().toJson(city))
-        setResult(Activity.RESULT_OK, resultIntent)
-        finish()
+        startActivity(resultIntent)
     }
 
     override fun showToast(message: String?) {
@@ -73,5 +87,12 @@ class RecentSearchesActivity : AppCompatActivity(), RecentSearchesMVP.View {
 
     override fun hideLoader() {
         indeterminateBar.visibility = View.INVISIBLE
+    }
+
+    private fun hideKeyboard(view: View) {
+        if (view.requestFocus()) {
+            val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+            imm?.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 }

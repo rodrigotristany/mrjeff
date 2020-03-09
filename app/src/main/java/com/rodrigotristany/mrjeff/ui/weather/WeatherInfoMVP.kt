@@ -8,7 +8,7 @@ interface WeatherInfoMVP {
 
     }
 
-    interface Prsenter : BaseMVP.Presenter {
+    interface Prsenter {
 
     }
 }

@@ -8,17 +8,8 @@ import com.google.gson.Gson
 
 @Entity(tableName = "city")
 data class City(
-    @ColumnInfo(name = "asciiName")
-    val asciiName: String,
-
     @ColumnInfo(name = "bbox")
     val bbox: Bbox,
-
-    @ColumnInfo(name = "countryCode")
-    val countryCode: String,
-
-    @ColumnInfo(name = "countryId")
-    val countryId: String,
 
     @ColumnInfo(name = "countryName")
     val countryName: String,
