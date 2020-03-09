@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/activity_view"
-    tools:context=".ui.searchs.RecentsSearchsActivity">
+    tools:context=".ui.searchs.RecentSearchesActivity">
 
     <ProgressBar
         android:id="@+id/indeterminateBar"

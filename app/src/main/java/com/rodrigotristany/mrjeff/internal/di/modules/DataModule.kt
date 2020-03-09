@@ -20,7 +20,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
-class DataModule @Inject constructor(private val context: Context) {
+class DataModule{
     val BASE_URL: String = "http://api.geonames.org/"
 
     @Provides
@@ -80,7 +80,7 @@ class DataModule @Inject constructor(private val context: Context) {
 
     @Provides
     @Singleton
-    fun provideCityDao() : CityDao {
+    fun provideCityDao(context: Context) : CityDao {
         val db = provideDatabaseClient(context)
         return db.cityDao()
     }

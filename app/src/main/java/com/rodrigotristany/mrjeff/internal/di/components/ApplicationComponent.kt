@@ -10,8 +10,6 @@ import com.rodrigotristany.mrjeff.internal.di.modules.DataModule
 import com.rodrigotristany.mrjeff.internal.di.modules.DomainModule
 import com.rodrigotristany.mrjeff.internal.di.modules.ApplicationModule
 import com.rodrigotristany.mrjeff.internal.di.modules.UiModule
-import com.rodrigotristany.mrjeff.ui.maps.MapsActivity
-import com.rodrigotristany.mrjeff.ui.searchs.RecentsSearchsActivity
 import dagger.Component
 import javax.inject.Singleton
 

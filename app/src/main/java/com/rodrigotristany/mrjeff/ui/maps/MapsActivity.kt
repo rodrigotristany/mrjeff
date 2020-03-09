@@ -3,6 +3,7 @@ package com.rodrigotristany.mrjeff.ui.maps
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -10,24 +11,47 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.gson.Gson
 import com.rodrigotristany.mrjeff.R
-import com.rodrigotristany.mrjeff.ui.searchs.RecentsSearchsActivity
+import com.rodrigotristany.mrjeff.data.cities.models.City
+import com.rodrigotristany.mrjeff.ui.searchs.RecentSearchesActivity
 import kotlinx.android.synthetic.main.activity_maps.*
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapsMVP.View {
+
+    companion object {
+        const val ON_RECENT_CITY_SELECTED = 1
+    }
 
     private lateinit var mMap: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
+        initializeView()
+    }
+
+    private fun initializeView() {
         floatingActionButton.setOnClickListener {
-            val intent = Intent(this, RecentsSearchsActivity::class.java)
+            val intent = Intent(this, RecentSearchesActivity::class.java)
             startActivityForResult(intent, ON_RECENT_CITY_SELECTED)
         }
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == ON_RECENT_CITY_SELECTED){
+            data?.let {intent ->
+                val cityJson = intent.getStringExtra(RecentSearchesActivity.SELECTED_CITY)
+                Gson().fromJson(cityJson, City::class.java).let {
+                    setLocationPoint(it.lat, it.lng)
+                }
+
+            }
+        }
     }
 
     /**
@@ -48,7 +72,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 
-    companion object {
-        const val ON_RECENT_CITY_SELECTED = 1
+    override fun setLocationPoint(lat: Double, lng: Double){
+        val cityPoint = LatLng(lat,lng)
+        mMap.apply {
+            this.clear()
+            this.addMarker(MarkerOptions().position(cityPoint))
+            this.moveCamera(CameraUpdateFactory.newLatLng(cityPoint))
+        }
+    }
+
+    override fun showToast(message: String?) {
+        Toast.makeText(this, message?: "Error", Toast.LENGTH_SHORT).show()
     }
 }

@@ -2,7 +2,9 @@ package com.rodrigotristany.mrjeff.data.cities.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.google.gson.Gson
 
 @Entity(tableName = "city")
 data class City(
@@ -22,10 +24,10 @@ data class City(
     val countryName: String,
 
     @ColumnInfo(name = "lat")
-    val lat: String,
+    val lat: Double,
 
     @ColumnInfo(name = "lng")
-    val lng: String,
+    val lng: Double,
 
     @ColumnInfo(name = "name")
     val name: String,
