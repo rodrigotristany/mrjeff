@@ -8,5 +8,6 @@ class CityRepositoryTest {
 
     @Test
     fun whenSearchCityThenNeverEmpty() {
+
     }
 }

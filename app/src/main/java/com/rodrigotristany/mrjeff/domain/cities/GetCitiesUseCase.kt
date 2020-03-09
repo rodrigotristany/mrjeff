@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class GetCitiesUseCase
 @Inject constructor(private val cityRepository: CityRepository,
-                                           subscribeScheduler: Scheduler,
-                                           postExecutionScheduler: Scheduler) : UseCase<CityResponse, String>(subscribeScheduler, postExecutionScheduler) {
+                    subscribeScheduler: Scheduler,
+                    postExecutionScheduler: Scheduler) : UseCase<CityResponse, String>(subscribeScheduler, postExecutionScheduler) {
     override fun buildUseCaseSingle(params: String?): Observable<CityResponse> = cityRepository.cities(params!!)
 }
